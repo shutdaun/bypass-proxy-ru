@@ -1,0 +1,271 @@
+:root {
+  color-scheme: dark;
+  --bg: #1a2332;
+  --panel: #223047;
+  --line: #33455f;
+  --field: #16202e;
+  --field-on: #1d3b45;
+  --text: #f1faee;
+  --muted: #93b3bd;
+  --accent: #2d8b8b;
+  --accent-strong: #a8dadc;
+  --danger: #d98a7b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.5 system-ui, "Segoe UI", sans-serif;
+}
+
+main {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--accent-strong);
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 12px;
+}
+
+#state-label {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+section {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 30px;
+}
+
+.row + .row {
+  margin-top: 2px;
+}
+
+p {
+  margin: 6px 0 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.bar {
+  height: 4px;
+  margin-top: 8px;
+  background: var(--field);
+  border: 1px solid var(--line);
+}
+
+.bar-fill {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+}
+
+.bar[hidden] {
+  display: none;
+}
+
+.small {
+  font-size: 12px;
+}
+
+input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 9px;
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--text);
+  font: inherit;
+}
+
+input[type="text"]::placeholder {
+  color: var(--muted);
+  opacity: 0.75;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  width: 34px;
+  height: 18px;
+  margin: 0;
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  flex: none;
+  position: relative;
+  cursor: pointer;
+}
+
+input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+input[type="checkbox"]:checked {
+  background: var(--field-on);
+  border-color: var(--accent);
+}
+
+input[type="checkbox"]:focus-visible,
+select:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+}
+
+input[type="checkbox"]:checked::after {
+  transform: translateX(16px);
+  background: var(--accent);
+}
+
+select,
+button {
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--text);
+  font: inherit;
+  padding: 5px 11px;
+  cursor: pointer;
+}
+
+select {
+  padding: 4px 8px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+  border-color: var(--line);
+}
+
+ul {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+ul.rules {
+  border-top: 0;
+  margin-top: 8px;
+}
+
+ul.rules li {
+  display: block;
+  padding: 2px 0;
+  border-bottom: 0;
+}
+
+ul.rules code {
+  font-family: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+  font-size: 11.5px;
+  color: var(--accent-strong);
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line);
+  word-break: break-all;
+}
+
+li button {
+  padding: 1px 8px;
+  color: var(--danger);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 2px;
+}
+
+footer a {
+  font-size: 12px;
+}
+
+body.popup {
+  width: 320px;
+  padding: 12px;
+}
+
+body.popup h1 {
+  font-size: 14px;
+}
+
+body.popup section {
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+body.popup #domains {
+  max-height: 148px;
+  overflow-y: auto;
+}

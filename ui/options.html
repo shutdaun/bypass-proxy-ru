@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="color-scheme" content="dark" />
+    <title>Bypass proxy (ru)</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Bypass proxy (ru)</h1>
+      </header>
+
+      <section>
+        <label class="row">
+          <span>Расширение включено</span>
+          <input type="checkbox" id="enabled" />
+        </label>
+        <label class="row">
+          <span>Российские сайты без прокси</span>
+          <input type="checkbox" id="geosite" />
+        </label>
+      </section>
+
+      <section>
+        <div class="row">
+          <span>Список geosite</span>
+          <button id="update">Обновить</button>
+        </div>
+        <div id="geo-bar" class="bar" hidden><div id="geo-bar-fill" class="bar-fill"></div></div>
+        <p id="geo-status" class="muted">—</p>
+        <label class="row">
+          <span>Обновлять автоматически</span>
+          <input type="checkbox" id="autoUpdate" />
+        </label>
+        <label class="row">
+          <span>Период</span>
+          <select id="interval">
+            <option value="1">каждый день</option>
+            <option value="7">раз в неделю</option>
+            <option value="30">раз в месяц</option>
+          </select>
+        </label>
+        <p class="muted small"><a id="geo-source" href="#" target="_blank" rel="noreferrer">источник данных</a></p>
+      </section>
+
+      <section>
+        <h2>Свои домены</h2>
+        <div class="row">
+          <input type="text" id="domain-input" placeholder="example.com" spellcheck="false" />
+          <button id="domain-add">Добавить</button>
+        </div>
+        <p id="domains-status" class="muted">—</p>
+        <ul id="domains"></ul>
+        <ul class="rules muted small">
+          <li><code>example.com</code> — хост и все поддомены, любой путь</li>
+          <li><code>*.local</code> — только поддомены, сам <code>local</code> не обходит</li>
+          <li><code>https://site.ru/path</code> — только этот префикс URL</li>
+          <li><code>*://*.cdn.net/*</code> — любая схема, поддомены и любой путь</li>
+        </ul>
+      </section>
+    </main>
+    <script src="options.js"></script>  </body>
+</html>

@@ -1,0 +1,45 @@
+{
+  "manifest_version": 2,
+  "name": "Bypass proxy (ru)",
+  "version": "2.1.0",
+  "description": "Российские сайты из списка geosite и ваши домены идут напрямую, остальное — через прокси браузера.",
+  "author": "shutdaun",
+  "homepage_url": "https://github.com/shutdaun/bypass-proxy-ru",
+  "permissions": [
+    "proxy",
+    "storage",
+    "<all_urls>"
+  ],
+  "browser_action": {
+    "default_title": "Bypass proxy (ru)",
+    "default_popup": "ui/popup.html",
+    "default_icon": "icons/icon.svg"
+  },
+  "background": {
+    "scripts": [
+      "lib/rules.js",
+      "lib/geosite.js",
+      "background.js"
+    ],
+    "persistent": true
+  },
+  "options_ui": {
+    "page": "ui/options.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg",
+    "128": "icons/icon.svg"
+  },
+  "incognito": "spanning",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "bypass-proxy-ru@shutdaun.github.io",
+      "strict_min_version": "115.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  }
+}

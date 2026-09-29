@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="color-scheme" content="dark" />
+    <title>Bypass proxy (ru)</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body class="popup">
+    <header>
+      <h1>Bypass proxy (ru)</h1>
+    </header>
+
+    <section>
+      <label class="row">
+        <span>Расширение включено</span>
+        <input type="checkbox" id="enabled" />
+      </label>
+      <label class="row">
+        <span>Российские сайты без прокси</span>
+        <input type="checkbox" id="geosite" />
+      </label>
+    </section>
+
+    <section>
+      <div class="row">
+        <span>Список geosite</span>
+        <button id="update">Обновить</button>
+      </div>
+      <div id="geo-bar" class="bar" hidden><div id="geo-bar-fill" class="bar-fill"></div></div>
+      <p id="geo-status" class="muted">—</p>
+      <label class="row">
+        <span>Обновлять автоматически</span>
+        <input type="checkbox" id="autoUpdate" />
+      </label>
+      <label class="row">
+        <span>Период</span>
+        <select id="interval">
+          <option value="1">каждый день</option>
+          <option value="7">раз в неделю</option>
+          <option value="30">раз в месяц</option>
+        </select>
+      </label>
+    </section>
+
+    <section>
+      <div class="row">
+        <span>Свои домены</span>
+      </div>
+      <div class="row">
+        <input type="text" id="domain-input" placeholder="example.com" spellcheck="false" />
+        <button id="domain-add">Добавить</button>
+      </div>
+      <p id="domains-status" class="muted">—</p>
+      <ul id="domains"></ul>
+    </section>
+
+    <footer>
+      <button id="open-options">Все настройки</button>
+      <a id="geo-source" href="#" target="_blank" rel="noreferrer">источник</a>
+    </footer>
+
+    <script src="options.js"></script>
+  </body>
+</html>
