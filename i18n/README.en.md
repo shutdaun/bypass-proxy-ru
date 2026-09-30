@@ -1,6 +1,6 @@
 # Bypass proxy (ru)
 
-![icon](icons/icon-128.png)
+![icon](../icons/icon-128.png)
 
 [Русский](../README.md)
 
