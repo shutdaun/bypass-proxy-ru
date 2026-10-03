@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Bypass proxy (ru)",
-  "version": "2.1.1",
-  "description": "Российские сайты из списка geosite и ваши домены идут напрямую, остальное — через прокси браузера.",
+  "version": "2.2.0",
+  "description": "Российские сайты из списка geosite и ваши домены идут напрямую, остальное — через SOCKS5.",
   "author": "shutdaun",
   "homepage_url": "https://github.com/shutdaun/bypass-proxy-ru",
   "permissions": [
@@ -44,6 +44,9 @@
       "data_collection_permissions": {
         "required": ["none"]
       }
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
     }
   }
 }

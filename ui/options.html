@@ -25,7 +25,7 @@
 
       <section>
         <div class="row">
-          <span>Список geosite</span>
+          <h2>Список geosite</h2>
           <button id="update">Обновить</button>
         </div>
         <div id="geo-bar" class="bar" hidden><div id="geo-bar-fill" class="bar-fill"></div></div>
@@ -43,6 +43,26 @@
           </select>
         </label>
         <p class="muted small"><a id="geo-source" href="#" target="_blank" rel="noreferrer">источник данных</a></p>
+      </section>
+
+      <section>
+        <h2>Прокси</h2>
+        <div class="proxy-grid">
+          <label for="socks-host">Хост</label>
+          <input type="text" id="socks-host" placeholder="127.0.0.1" spellcheck="false" />
+          <label for="socks-port">Порт</label>
+          <input type="text" id="socks-port" placeholder="1080" spellcheck="false" />
+          <label for="socks-username">Логин</label>
+          <input type="text" id="socks-username" spellcheck="false" />
+          <label for="socks-password">Пароль</label>
+          <input type="text" id="socks-password" spellcheck="false" />
+          <label for="socks-proxydns">DNS через прокси</label>
+          <input type="checkbox" id="socks-proxydns" />
+        </div>
+        <div class="row">
+          <span id="socks-status" class="muted">—</span>
+          <button id="socks-clear">Очистить</button>
+        </div>
       </section>
 
       <section>

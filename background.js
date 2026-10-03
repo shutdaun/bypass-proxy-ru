@@ -8,6 +8,7 @@ const DEFAULTS = {
   autoUpdate: true,
   interval: 7,
   domains: [],
+  socks: { host: "", port: 0, username: "", password: "", proxyDNS: true },
 };
 const GEO_KEY = "geosite";
 const DAY = 86400000;
@@ -19,6 +20,7 @@ const PROXY = undefined;
 
 const state = {
   ...DEFAULTS,
+  socks: { ...DEFAULTS.socks },
   domains: [],
   matchers: [],
   geo: GeoSite.empty,
@@ -46,12 +48,25 @@ async function init() {
     ? saved.domains.filter((item) => typeof item === "string" && item.trim())
     : [];
   state.matchers = PB.compileAll(state.domains);
+  state.socks = normalizeSocks(saved.socks);
 
   if (stored[GEO_KEY] && stored[GEO_KEY].domains) {
     applyGeo(stored[GEO_KEY]);
   }
   startTimer();
   scheduleUpdate();
+}
+
+function normalizeSocks(raw) {
+  const value = raw && typeof raw === "object" ? raw : {};
+  const port = Number(value.port);
+  return {
+    host: String(value.host || "").trim(),
+    port: Number.isInteger(port) && port > 0 && port <= 65535 ? port : 0,
+    username: String(value.username || ""),
+    password: String(value.password || ""),
+    proxyDNS: value.proxyDNS !== false,
+  };
 }
 
 async function save() {
@@ -62,13 +77,14 @@ async function save() {
       autoUpdate: state.autoUpdate,
       interval: state.interval,
       domains: state.domains,
+      socks: state.socks,
     },
   });
 }
 
 function applyGeo(geo) {
   state.geo = GeoSite.compile(geo.domains);
-  state.geoUpdatedAt = geo.updatedAt || 0;
+  state.geoUpdatedAt = Number.isFinite(geo.updatedAt) ? geo.updatedAt : 0;
   state.geoError = "";
   state.geoFailedAt = 0;
 }
@@ -129,9 +145,21 @@ function hostOf(url) {
   }
 }
 
-function decide(details) {
-  if (!state.enabled) return null;
+function socksInfo() {
+  const socks = state.socks;
+  if (!socks.host || !socks.port) return PROXY;
+  const info = {
+    type: "socks",
+    host: socks.host,
+    port: socks.port,
+    proxyDNS: socks.proxyDNS,
+  };
+  if (socks.username) info.username = socks.username;
+  if (socks.password) info.password = socks.password;
+  return info;
+}
 
+function decide(details) {
   const host = hostOf(details.url);
   if (host && state.geosite && state.geo.test(host)) return "geosite";
 
@@ -147,7 +175,8 @@ function decide(details) {
 async function onRequest(details) {
   await ready;
   try {
-    return decide(details) ? DIRECT : PROXY;
+    if (!state.enabled) return PROXY;
+    return decide(details) ? DIRECT : socksInfo();
   } catch (error) {
     console.error("[bypass-proxy-ru]", error);
     return PROXY;
@@ -163,12 +192,15 @@ browser.proxy.onError.addListener((error) => {
 browser.runtime.onStartup.addListener(scheduleUpdate);
 
 function status() {
+  const socks = state.socks;
   return {
     enabled: state.enabled,
     geosite: state.geosite,
     autoUpdate: state.autoUpdate,
     interval: state.interval,
     domains: state.domains.slice(),
+    socks: { ...socks },
+    socksActive: Boolean(socks.host && socks.port),
     geo: {
       size: state.geo.size,
       categories: state.geo.categories.length,
@@ -241,6 +273,14 @@ browser.runtime.onMessage.addListener((message) => {
     case "removeDomain":
       state.domains = state.domains.filter((item) => item !== message.domain);
       state.matchers = PB.compileAll(state.domains);
+      return save().then(snapshot);
+
+    case "socks":
+      state.socks = normalizeSocks(message.value);
+      return save().then(snapshot);
+
+    case "clearSocks":
+      state.socks = { ...DEFAULTS.socks };
       return save().then(snapshot);
 
     default:

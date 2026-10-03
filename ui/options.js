@@ -78,6 +78,29 @@ function renderDomains(domains) {
   }
 }
 
+function renderSocks(state) {
+  const socks = state.socks;
+  el("socks-host").value = socks.host;
+  el("socks-port").value = socks.port ? String(socks.port) : "";
+  el("socks-username").value = socks.username;
+  el("socks-password").value = socks.password;
+  el("socks-proxydns").checked = socks.proxyDNS;
+  el("socks-status").textContent = state.socksActive
+    ? "SOCKS5 " + socks.host + ":" + socks.port
+    : "Прокси не задан";
+}
+
+function collectSocks() {
+  const port = Number(el("socks-port").value.trim());
+  return {
+    host: el("socks-host").value.trim(),
+    port,
+    username: el("socks-username").value,
+    password: el("socks-password").value,
+    proxyDNS: el("socks-proxydns").checked,
+  };
+}
+
 function render(state) {
   el("enabled").checked = state.enabled;
   el("geosite").checked = state.geosite;
@@ -87,6 +110,7 @@ function render(state) {
   el("domain-input").disabled = !state.enabled;
   el("domain-add").disabled = !state.enabled;
   el("geo-source").href = state.geo.source;
+  renderSocks(state);
   renderGeo(state);
   renderDomains(state.domains);
   el("domains-status").textContent = state.domains.length
@@ -106,6 +130,16 @@ for (const key of ["enabled", "geosite", "autoUpdate"]) {
 
 el("interval").addEventListener("change", (event) =>
   update({ action: "interval", value: Number(event.target.value) })
+);
+
+for (const name of ["host", "port", "username", "password", "proxydns"]) {
+  el("socks-" + name).addEventListener("change", () =>
+    update({ action: "socks", value: collectSocks() })
+  );
+}
+
+el("socks-clear").addEventListener("click", () =>
+  update({ action: "clearSocks" })
 );
 
 el("update").addEventListener("click", async () => {

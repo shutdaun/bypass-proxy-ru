@@ -1,15 +1,15 @@
 :root {
   color-scheme: dark;
-  --bg: #1a2332;
-  --panel: #223047;
-  --line: #33455f;
-  --field: #16202e;
-  --field-on: #1d3b45;
-  --text: #f1faee;
-  --muted: #93b3bd;
-  --accent: #2d8b8b;
-  --accent-strong: #a8dadc;
-  --danger: #d98a7b;
+  --bg: #0d1117;
+  --panel: #161b22;
+  --line: #30363d;
+  --field: #010409;
+  --field-on: #0d2818;
+  --text: #e6edf3;
+  --muted: #7d8590;
+  --accent: #3fb950;
+  --accent-strong: #7ee787;
+  --danger: #f85149;
 }
 
 * {
@@ -43,7 +43,11 @@ h2 {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--text);
+}
+
+.row > h2 {
+  margin: 0;
 }
 
 header {
@@ -76,6 +80,32 @@ section {
 
 .row + .row {
   margin-top: 2px;
+}
+
+.proxy-grid {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 4px 10px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.proxy-grid > label {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.proxy-grid > input[type="checkbox"] {
+  justify-self: end;
+}
+
+.proxy-grid > label:nth-last-of-type(1),
+.proxy-grid > input[type="checkbox"] {
+  margin-top: 10px;
+}
+
+.proxy-grid + .row {
+  margin-top: 10px;
 }
 
 p {
@@ -172,17 +202,27 @@ input[type="checkbox"]:checked::after {
 
 select,
 button {
+  appearance: none;
+  -moz-appearance: none;
+  padding: 6px 11px;
   background: var(--field);
   border: 1px solid var(--line);
   border-radius: 5px;
   color: var(--text);
   font: inherit;
-  padding: 5px 11px;
   cursor: pointer;
 }
 
 select {
-  padding: 4px 8px;
+  padding: 6px 28px 6px 9px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%237d8590' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 9px center;
+}
+
+button:hover:not(:disabled),
+select:hover {
+  border-color: var(--accent);
 }
 
 button:disabled {
