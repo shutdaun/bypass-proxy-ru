@@ -4,21 +4,19 @@
 
 [Русский](../README.md)
 
-Firefox extension that routes Russian sites directly and everything else through the proxy.
-
 ## Why
 
-Many Russian sites block VPN connections. The add-on sends domains from the geosite database directly, everything else through the proxy.
+Many Russian sites block VPN connections. The add-on sends domains from the geosite database directly, everything else through SOCKS5.
 
 ## Install
 
-Install from AMO, open the options page and make sure a system proxy is set up in Firefox.
+Install from AMO, open the options page and set SOCKS5. If SOCKS5 is not set, the proxy configured in Firefox itself is used.
 
 ## Permissions
 
 | Permission | Why |
 |---|---|
-| `proxy` | Route remaining traffic to the system proxy |
+| `proxy` | Route remaining traffic to SOCKS5 |
 | `<all_urls>` | Read the request domain |
 | `storage` | Keep settings locally |
 
